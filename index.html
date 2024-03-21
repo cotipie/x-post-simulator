@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>X（Twitter）写真投稿シミュレーター</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="attention">
+            <h1>X（Twitter）写真投稿シミュレーター</h1>
+            <p>４枚組や３枚組（調整中）を投稿したときのシミュレートを行います。サーバー側に写真保存は行いません。検証用ツールのため、動作保証はいたしかねます。</p>
+            <p>このサービスは<a href="https://twitter.com/tsukasan_n"
+                    target="_blank">@tsukasan_n</a>によって運用されています。ご要望や不具合はお気軽にDMください。</p>
+        </div>
+        <div class="post">
+            <div class="header">
+                <img class="icon" src="default_icon.png" alt="アイコン">
+                <div class="name-container">
+                    <span class="name">Photographer</span>
+                    <span class="username">@Photographer</span>
+                </div>
+            </div>
+            <div class="caption" contenteditable="true">自由に編集できます</div>
+            <div id="all-photos" class="image-grid"></div>
+            <div class="post-info">
+                <span id="post-time"></span>
+                <span class="views">・1,570件の表示</span>
+            </div>
+            <div class="separator"></div>
+            <div class="post-actions">
+                <div class="action">
+                    <i class="far fa-comment"></i>
+                    <span>10</span>
+                </div>
+                <div class="action">
+                    <i class="fas fa-retweet"></i>
+                    <span>5</span>
+                </div>
+                <div class="action">
+                    <i class="far fa-heart"></i>
+                    <span>100</span>
+                </div>
+                <div class="action">
+                    <i class="far fa-chart-bar"></i>
+                    <span>1,570</span>
+                </div>
+                <div class="action">
+                    <i class="far fa-bookmark"></i>
+                </div>
+                <div class="action">
+                    <i class="far fa-share-square"></i>
+                </div>
+            </div>
+            <div class="separator"></div>
+        </div>
+        <div class="file-input-container">
+            <input type="file" id="fileInput" accept="image/*" multiple>
+            <label for="fileInput" class="file-input-label">ファイルを選択</label>
+        </div>
+        <div id="thumbnails"></div>
+        <button id="updateButton" class="button" style="display: none;">反映</button>
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-label">ダークモード</span>
+        </div>
+        <footer class="footer">
+            <p>&copy; 2024 <a href="https://twitter.com/tsukasan_n" target="_blank">@tsukasan_n</a>. All rights
+                reserved.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
