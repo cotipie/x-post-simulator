@@ -215,14 +215,15 @@ body {
 
 #thumbnails {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: nowrap;
+    gap: 4px;
     margin: 20px 0 20px;
+    justify-content: space-evenly;
 }
 
 .thumbnail {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -240,7 +241,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     font-size: 16px;
-    padding: 10px;
+    padding: 16px;
     cursor: pointer;
 }
 
