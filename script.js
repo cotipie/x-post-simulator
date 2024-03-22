@@ -2,16 +2,17 @@ const fileInput = document.getElementById('fileInput');
 const caption = document.querySelector('.caption');
 const allPhotos = document.getElementById('all-photos');
 const thumbnails = document.getElementById('thumbnails');
-const updateButton = document.getElementById('updateButton');
 const darkModeToggle = document.getElementById('darkModeToggle');
+const viewModeToggle = document.getElementById('viewModeToggle');
 const postTime = document.getElementById('post-time');
+const header = document.querySelector('.header');
 
 let images = [];
 let photoOrder = [];
 
 fileInput.addEventListener('change', handleFileSelect);
-updateButton.addEventListener('click', updatePhotoOrder);
 darkModeToggle.addEventListener('change', toggleDarkMode);
+viewModeToggle.addEventListener('change', toggleViewMode);
 
 function handleFileSelect(event) {
     const files = event.target.files;
@@ -28,7 +29,6 @@ function handleFileSelect(event) {
     updateLayout();
     updateImages();
     updateThumbnails();
-    updateButton.style.display = 'inline-block';
 }
 
 function updateLayout() {
@@ -59,7 +59,7 @@ function updateImages() {
         if (file) {
             if (!img) {
                 img = document.createElement('img');
-                wrapper.appendChild(img);
+                wrapper.insertBefore(img, placeholder);
             }
             img.src = URL.createObjectURL(file);
             img.id = `photo-${index}`;
@@ -78,61 +78,88 @@ function updateThumbnails() {
     images.forEach((file, index) => {
         const thumbnailWrapper = document.createElement('div');
         thumbnailWrapper.className = 'thumbnail-wrapper';
+        thumbnailWrapper.dataset.index = index;
 
         const thumbnail = document.createElement('img');
         thumbnail.className = 'thumbnail';
         thumbnail.src = URL.createObjectURL(file);
 
-        const thumbnailNumber = document.createElement('input');
-        thumbnailNumber.className = 'thumbnail-number';
-        thumbnailNumber.type = 'number';
-        thumbnailNumber.value = photoOrder[index] + 1;
-        thumbnailNumber.min = 1;
-        thumbnailNumber.max = images.length;
+        const leftArrow = document.createElement('div');
+        leftArrow.className = 'thumbnail-arrow thumbnail-arrow-left';
+        leftArrow.innerHTML = '&#8249;';
+        leftArrow.addEventListener('click', () => {
+            const currentIndex = photoOrder.indexOf(index);
+            if (currentIndex > 0) {
+                const temp = photoOrder[currentIndex];
+                photoOrder[currentIndex] = photoOrder[currentIndex - 1];
+                photoOrder[currentIndex - 1] = temp;
+                updateImages();
+                updateThumbnails();
+            }
+        });
 
-        const deleteButton = document.createElement('button');
+        const rightArrow = document.createElement('div');
+        rightArrow.className = 'thumbnail-arrow thumbnail-arrow-right';
+        rightArrow.innerHTML = '&#8250;';
+        rightArrow.addEventListener('click', () => {
+            const currentIndex = photoOrder.indexOf(index);
+            if (currentIndex < images.length - 1) {
+                const temp = photoOrder[currentIndex];
+                photoOrder[currentIndex] = photoOrder[currentIndex + 1];
+                photoOrder[currentIndex + 1] = temp;
+                updateImages();
+                updateThumbnails();
+            }
+        });
+
+        const deleteButton = document.createElement('div');
         deleteButton.className = 'delete-button';
         deleteButton.textContent = '削除';
         deleteButton.addEventListener('click', () => {
             images.splice(index, 1);
-            photoOrder = Array.from({ length: images.length }, (_, i) => i);
+            photoOrder = photoOrder.filter(i => i !== index);
+            photoOrder = photoOrder.map(i => (i > index ? i - 1 : i));
             updateLayout();
             updateImages();
             updateThumbnails();
-            if (images.length === 0) {
-                updateButton.style.display = 'none';
-            }
         });
 
+        thumbnailWrapper.appendChild(leftArrow);
         thumbnailWrapper.appendChild(thumbnail);
-        thumbnailWrapper.appendChild(thumbnailNumber);
+        thumbnailWrapper.appendChild(rightArrow);
         thumbnailWrapper.appendChild(deleteButton);
         thumbnails.appendChild(thumbnailWrapper);
     });
+
+    // Thumbnail側の順序を更新
+    const thumbnailWrappers = document.querySelectorAll('.thumbnail-wrapper');
+    thumbnailWrappers.forEach((wrapper, index) => {
+        wrapper.style.order = photoOrder.indexOf(parseInt(wrapper.dataset.index));
+    });
 }
 
-function updatePhotoOrder() {
-    const thumbnailNumbers = document.querySelectorAll('.thumbnail-number');
-    const newPhotoOrder = Array.from(thumbnailNumbers).map(input => parseInt(input.value) - 1);
-
-    if (newPhotoOrder.some(order => order < 0 || order >= images.length)) {
-        alert('無効な番号が指定されました');
-        updateThumbnails();
-        return;
+function moveImage(index, direction) {
+    const newIndex = photoOrder[index] + direction;
+    if (newIndex >= 0 && newIndex < images.length) {
+        const temp = photoOrder[index];
+        photoOrder[index] = photoOrder[index + direction];
+        photoOrder[index + direction] = temp;
+        updateImages();
     }
-
-    if (new Set(newPhotoOrder).size !== newPhotoOrder.length) {
-        alert('重複した番号が指定されました');
-        updateThumbnails();
-        return;
-    }
-
-    photoOrder = newPhotoOrder;
-    updateImages();
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
+}
+
+function toggleViewMode() {
+    const post = document.querySelector('.post');
+
+    if (viewModeToggle.checked) {
+        post.classList.add('timeline-mode');
+    } else {
+        post.classList.remove('timeline-mode');
+    }
 }
 
 function updatePostTime() {

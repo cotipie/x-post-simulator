@@ -3,31 +3,53 @@ body {
     background-color: #ffffff;
     color: #14171a;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode {
-    background-color: #000000;
-    color: #d9d9d9;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    max-width: 558px;
+    max-width: 640px;
     margin: 0 auto;
+    padding: 20px;
+}
+
+@media screen and (max-width: 640px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .post {
+        max-width: 100%;
+    }
+
+    .image-grid {
+        width: 100%;
+        height: auto;
+    }
 }
 
 .post {
     background-color: #ffffff;
-    border: 1px solid #e1e8ed;
     border-radius: 18px;
-    padding: 20px;
+    padding: 16px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
+    max-width: 566px;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .dark-mode .post {
-    background-color: #1c2938;
-    border-color: #38444d;
+    background-color: #000000;
+    border-color: #2f3336;
+    color: white;
 }
 
 .header {
@@ -46,6 +68,7 @@ body.dark-mode {
 .name-container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .name {
@@ -53,13 +76,24 @@ body.dark-mode {
     margin-bottom: 2px;
 }
 
-.username {
+.username,
+.timestamp {
     color: #657786;
     font-size: 14px;
 }
 
-.dark-mode .username {
-    color: #8b98a5;
+.dark-mode .username,
+.dark-mode .timestamp {
+    color: #6e767d;
+}
+
+.fa-ellipsis-h {
+    color: #657786;
+    cursor: pointer;
+}
+
+.dark-mode .fa-ellipsis-h {
+    color: #6e767d;
 }
 
 .caption {
@@ -71,6 +105,8 @@ body.dark-mode {
     grid-gap: 2px;
     border-radius: 18px;
     overflow: hidden;
+    width: 566px;
+    height: 320px;
 }
 
 .image-wrapper {
@@ -83,7 +119,7 @@ body.dark-mode {
 }
 
 .dark-mode .image-wrapper {
-    background-color: #253341;
+    background-color: #1c1f23;
 }
 
 .image-wrapper img {
@@ -100,7 +136,13 @@ body.dark-mode {
 }
 
 .dark-mode .placeholder {
-    color: #8b98a5;
+    color: #6e767d;
+}
+
+.timestamp {
+    color: #657786;
+    font-size: 14px;
+    display: none;
 }
 
 .post-info {
@@ -110,7 +152,7 @@ body.dark-mode {
 }
 
 .dark-mode .post-info {
-    color: #8b98a5;
+    color: #6e767d;
 }
 
 .views {
@@ -123,14 +165,14 @@ body.dark-mode {
 }
 
 .dark-mode .separator {
-    border-color: #38444d;
+    border-color: #2f3336;
 }
 
 .post-actions {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 12px 0;
 }
 
 .action {
@@ -142,7 +184,7 @@ body.dark-mode {
 }
 
 .dark-mode .action {
-    color: #8b98a5;
+    color: #6e767d;
 }
 
 .action i {
@@ -174,12 +216,12 @@ body.dark-mode {
 #thumbnails {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 10px;
     margin: 20px 0 20px;
 }
 
 .thumbnail {
-    width: 92px;
+    width: 100px;
     height: 100px;
     object-fit: cover;
     border-radius: 4px;
@@ -187,91 +229,71 @@ body.dark-mode {
 
 .thumbnail-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.thumbnail-number {
+.thumbnail-arrow {
     position: absolute;
-    top: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.thumbnail-arrow-left {
+    left: 5px;
+}
+
+.thumbnail-arrow-right {
+    right: 5px;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 5px;
     right: 5px;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
-    font-size: 24px;
+    font-size: 12px;
     padding: 2px 6px;
     border-radius: 4px;
-}
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #1da1f2;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.button:hover {
-    background-color: #0c8de4;
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 16px;
+    padding: 5px;
+    cursor: pointer;
 }
 
-/* 画像1枚の時 */
-.layout-1 {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    width: 516px;
-    height: 292px;
+.arrow-left {
+    left: 5px;
 }
 
-.layout-1 .image-wrapper:first-child {
-    display: flex;
-    justify-content: flex-end;
+.arrow-right {
+    right: 5px;
 }
 
-.layout-1 .image-wrapper img {
-    object-fit: contain;
-    max-width: 382px;
-    max-height: 512px;
-}
-
-/* 画像2枚の時 */
-.layout-2 {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    width: 516px;
-    height: 292px;
-}
-
-/* 画像3枚の時 */
-.layout-3 {
-    grid-template-columns: 258px 258px;
-    grid-template-rows: 292px 146px;
-    width: 516px;
-    height: 438px;
-}
-
-.layout-3 .image-wrapper:first-child {
-    grid-row: 1 / 3;
-}
-
-/* 画像4枚の時 */
-.layout-4 {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    width: 516px;
-    height: 292px;
-}
-
-.layout-4 .image-wrapper {
-    width: 258px;
-    height: 146px;
-}
-
-/* ダークモードトグル */
 .toggle-container {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
 }
 
 .switch {
@@ -328,6 +350,101 @@ input:checked+.slider:before {
     font-size: 14px;
 }
 
+/* 画像1枚の時 */
+.layout-1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.layout-1 .image-wrapper:first-child {
+    display: flex;
+    justify-content: center;
+}
+
+.layout-1 .image-wrapper img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 画像2枚の時 */
+.layout-2 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+}
+
+/* 画像3枚の時 */
+.layout-3 {
+    grid-template-columns: 283px 283px;
+    grid-template-rows: 320px 160px;
+}
+
+.layout-3 .image-wrapper:first-child {
+    grid-row: 1 / 3;
+}
+
+/* 画像4枚の時 */
+.layout-4 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.layout-4 .image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.layout-4 .image-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+}
+
+.timeline-mode .post {
+    border-radius: 0;
+}
+
+.timeline-mode .header {
+    justify-content: flex-start;
+}
+
+.timeline-mode .name-container {
+    flex-direction: row;
+    align-items: center;
+    margin-top: -26px;
+}
+
+.timeline-mode .username {
+    margin-left: 5px;
+}
+
+.timeline-mode .timestamp {
+    display: inline;
+}
+
+.timeline-mode .timeline-content {
+    padding-left: 58px;
+}
+
+.timeline-mode .caption {
+    margin-top: -32px;
+}
+
+.timeline-mode .image-grid {
+    width: 506px;
+}
+
+.timeline-mode .separator {
+    display: none;
+}
+
+.timeline-mode .post-info {
+    display: none;
+}
+
 .footer {
     text-align: center;
     padding: 20px;
@@ -337,19 +454,10 @@ input:checked+.slider:before {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.dark-mode .footer {
-    background-color: #1c2938;
-    border-color: #38444d;
-}
-
 .footer p {
     margin: 0;
     font-size: 14px;
     color: #657786;
-}
-
-.dark-mode .footer p {
-    color: #8b98a5;
 }
 
 .footer a {
