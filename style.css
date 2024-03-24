@@ -98,6 +98,13 @@ body {
 
 .caption {
     margin-bottom: 10px;
+    outline: none;
+}
+
+.caption:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 .image-grid {
@@ -224,6 +231,7 @@ body {
 .thumbnail {
     width: 100%;
     height: auto;
+    max-height: 200px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -353,19 +361,38 @@ input:checked+.slider:before {
 
 /* 画像1枚の時 */
 .layout-1 {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-}
-
-.layout-1 .image-wrapper:first-child {
     display: flex;
     justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 18px;
 }
 
-.layout-1 .image-wrapper img {
+.layout-1 img {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+    border-radius: 18px;
+}
+
+.single-mode .layout-1 {
+    max-width: 556px;
+    width: 100%;
+    height: auto;
+}
+
+.timeline-mode .layout-1 {
+    width: 100%;
+    max-height: 510px;
+    height: auto;
+    justify-content: flex-start;
+}
+
+.timeline-mode .layout-1 img {
+    max-height: 510px;
+    object-fit: contain;
+    object-position: left;
+    border-radius: 18px;
 }
 
 /* 画像2枚の時 */
@@ -376,12 +403,33 @@ input:checked+.slider:before {
 
 /* 画像3枚の時 */
 .layout-3 {
-    grid-template-columns: 283px 283px;
-    grid-template-rows: 320px 160px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.layout-3 .image-wrapper {
+    overflow: hidden;
+}
+
+.layout-3 .image-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-position: center;
 }
 
 .layout-3 .image-wrapper:first-child {
     grid-row: 1 / 3;
+}
+
+.layout-3 .image-wrapper:nth-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.layout-3 .image-wrapper:nth-child(3) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
 }
 
 /* 画像4枚の時 */

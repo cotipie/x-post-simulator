@@ -32,21 +32,44 @@ function handleFileSelect(event) {
 }
 
 function updateLayout() {
-    const numberOfPhoto = images.length;
-    allPhotos.className = `image-grid layout-${numberOfPhoto}`;
-    allPhotos.innerHTML = '';
+    const numberOfPhotos = images.length;
+    const imageContainer = document.getElementById('image-container');
+    const singleImage = document.getElementById('single-image');
+    const imageGrid = document.getElementById('image-grid');
 
-    for (let i = 0; i < numberOfPhoto; i++) {
-        const imageWrapper = document.createElement('div');
-        imageWrapper.className = 'image-wrapper';
-        imageWrapper.dataset.index = i;
+    if (numberOfPhotos === 1) {
+        singleImage.innerHTML = '';
+        imageGrid.innerHTML = '';
 
-        const placeholder = document.createElement('div');
-        placeholder.className = 'placeholder';
-        placeholder.textContent = '画像をアップロードしてください';
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(images[0]);
+        singleImage.appendChild(img);
 
-        imageWrapper.appendChild(placeholder);
-        allPhotos.appendChild(imageWrapper);
+        singleImage.classList.add('layout-1');
+        imageGrid.classList.remove(...imageGrid.classList);
+    } else {
+        singleImage.innerHTML = '';
+        imageGrid.innerHTML = '';
+
+        for (let i = 0; i < numberOfPhotos; i++) {
+            const imageWrapper = document.createElement('div');
+            imageWrapper.className = 'image-wrapper';
+            imageWrapper.dataset.index = i;
+
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(images[i]);
+
+            const placeholder = document.createElement('div');
+            placeholder.className = 'placeholder';
+            placeholder.textContent = '画像をアップロードしてください';
+
+            imageWrapper.appendChild(img);
+            imageWrapper.appendChild(placeholder);
+            imageGrid.appendChild(imageWrapper);
+        }
+
+        singleImage.classList.remove('layout-1');
+        imageGrid.className = `image-grid layout-${numberOfPhotos}`;
     }
 }
 

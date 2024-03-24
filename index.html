@@ -13,7 +13,7 @@
     <div class="container">
         <div class="attention">
             <h1>X（Twitter）写真投稿シミュレーター</h1>
-            <p>４枚組や３枚組（調整中）を投稿したときのシミュレートを行います。サーバー側に写真保存は行いません。検証用ツールのため、動作保証はいたしかねます。</p>
+            <p>1枚単独から、3枚組や4枚組を投稿したときの並び替えシミュレートを行います。サーバー側に写真保存は行いません。検証用ツールのため、動作保証はいたしかねます。</p>
             <p>このサービスは<a href="https://twitter.com/tsukasan_n"
                     target="_blank">@tsukasan_n</a>によって運用されています。ご要望や不具合はお気軽にDMください。</p>
         </div>
@@ -45,7 +45,10 @@
             </div>
             <div class="timeline-content">
                 <div class="caption" contenteditable="true">自由に編集できます</div>
-                <div id="all-photos" class="image-grid"></div>
+                <div id="image-container">
+                    <div id="single-image"></div>
+                    <div id="image-grid" class="image-grid"></div>
+                </div>
                 <div class="post-info">
                     <span id="post-time"></span>
                     <span class="views">・1,570件の表示</span>
