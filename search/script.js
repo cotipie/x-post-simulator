@@ -1,4 +1,10 @@
-document.getElementById('search-form').addEventListener('submit', function(e) {
+function generateSearchUrl(searchCommand) {
+  const baseUrl = 'https://twitter.com/search';
+  const encodedCommand = encodeURIComponent(searchCommand);
+  return `${baseUrl}?q=${encodedCommand}&src=typed_query&f=top`;
+}
+
+document.getElementById('search-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
   const userId = document.getElementById('user-id').value;
@@ -76,6 +82,11 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
   }
 
   document.getElementById('result').textContent = searchCommand.trim();
+  const searchUrl = generateSearchUrl(searchCommand.trim());
+  const searchUrlLink = document.getElementById('search-url');
+  searchUrlLink.style.display = 'block';
+  searchUrlLink.href = searchUrl;
+  searchUrlLink.textContent = 'Xで検索結果を表示';
 });
 
 document.getElementById('copy-button').addEventListener('click', function() {
