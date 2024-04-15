@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter検索コマンドジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Twitter検索コマンドジェネレーター</h1>
+    <form id="search-form">
+      <div class="form-group">
+        <label for="user-id">ユーザーID:</label>
+        <input type="text" id="user-id" name="user-id">
+      </div>
+      <div class="form-group">
+        <label for="keyword">キーワード:</label>
+        <input type="text" id="keyword" name="keyword">
+      </div>
+      <div class="form-group">
+        <label for="start-date">開始日:</label>
+        <input type="date" id="start-date" name="start-date">
+      </div>
+      <div class="form-group">
+        <label for="end-date">終了日:</label>
+        <input type="date" id="end-date" name="end-date">
+      </div>
+      <div class="form-group">
+        <label for="filter">フィルター:</label>
+        <select id="filter" name="filter">
+          <option value="">選択してください</option>
+          <option value="filter:images">画像</option>
+          <option value="filter:videos">動画</option>
+          <option value="filter:links">リンク</option>
+          <option value="filter:verified">認証アカウント</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url">
+      </div>
+      <div class="form-group">
+        <label for="hashtag">ハッシュタグ:</label>
+        <input type="text" id="hashtag" name="hashtag">
+      </div>
+      <div class="form-group">
+        <label for="exclude">除外するキーワード:</label>
+        <input type="text" id="exclude" name="exclude">
+      </div>
+      <div class="form-group">
+        <label for="min-retweets">最小リツイート数:</label>
+        <input type="number" id="min-retweets" name="min-retweets">
+      </div>
+      <div class="form-group">
+        <label for="min-faves">最小いいね数:</label>
+        <input type="number" id="min-faves" name="min-faves">
+      </div>
+      <div class="form-group">
+        <label for="location">場所:</label>
+        <input type="text" id="location" name="location">
+      </div>
+      <div class="form-group">
+        <label for="radius">範囲:</label>
+        <input type="text" id="radius" name="radius">
+      </div>
+      <div class="form-group">
+        <label for="language">言語:</label>
+        <input type="text" id="language" name="language">
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="include-retweets" name="include-retweets">
+        <label for="include-retweets">リツイートを含める</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="only-retweets" name="only-retweets">
+        <label for="only-retweets">リツイートのみ</label>
+      </div>
+      <button type="submit">検索コマンド生成</button>
+    </form>
+    <div id="result-container">
+      <div id="result"></div>
+      <button id="copy-button">コマンドをコピー</button>
+    </div>
+  </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
