@@ -25,14 +25,13 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
 
   let searchCommand = '';
 
-  if (userId) {
-    if (keyword) {
-      searchCommand += `${keyword} from:${userId} `;
-    } else {
-      searchCommand += `from:${userId} `;
-    }
+  if (keyword) {
+    searchCommand += `${keyword} `;
   }
 
+  if (userId) {
+      searchCommand += `from:${userId} `;
+  }
   if (startDate) {
     searchCommand += `since:${startDate} `;
   }
